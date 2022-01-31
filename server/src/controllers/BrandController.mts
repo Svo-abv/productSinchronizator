@@ -31,7 +31,19 @@ class BrandController {
         }
         try {
             const brand = await Brand.findOne({ where: { id } });
-            return response.json(brand);
+            return response.json({ brand });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    }
+    async getUuid(request, response, next) {
+        const { uuid_1c } = request.params;
+        if (!uuid_1c) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const brand = await Brand.findOne({ where: { uuid_1c } });
+            return response.json({ brand });
         } catch (e) {
             return next(ApiError.internal(e.message));
         };

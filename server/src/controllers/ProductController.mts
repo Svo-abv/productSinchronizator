@@ -43,7 +43,7 @@ class ProductController {
         }
         try {
             const product = await Products.update({ deleted: true }, { where: { id } });
-            return response.json(product);
+            return response.json({ product });
         } catch (e) {
             return next(ApiError.internal(e.message));
         };
@@ -56,7 +56,20 @@ class ProductController {
         }
         try {
             const product = await Products.findAll({ where: { brandId } });
-            return response.json(product);
+            return response.json({ product });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+
+    }
+    async getUuid(request, response, next) {
+        const { uuid_1c } = request.params;
+        if (!uuid_1c) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const product = await Products.findAll({ where: { uuid_1c } });
+            return response.json({ product });
         } catch (e) {
             return next(ApiError.internal(e.message));
         };

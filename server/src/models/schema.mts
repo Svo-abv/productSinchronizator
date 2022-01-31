@@ -46,8 +46,7 @@ export const Brand = sequelize.define("brand", {
 
 export const Products = sequelize.define("products", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    //  id_cataloge: { type: DataTypes.INTEGER },
-    // id_brand: { type: DataTypes.INTEGER },
+    code: { type: DataTypes.STRING, },
     name: { type: DataTypes.STRING, },
     img: { type: DataTypes.STRING, },
     deleted: { type: DataTypes.BOOLEAN, },

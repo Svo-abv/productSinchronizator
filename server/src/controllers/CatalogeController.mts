@@ -30,7 +30,19 @@ class CatalogeController {
         }
         try {
             const cataloge = await Cataloge.findOne({ where: { id } });
-            return response.json(cataloge);
+            return response.json({ cataloge });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    }
+    async getUuid(request, response, next) {
+        const { uuid_1c } = request.params;
+        if (!uuid_1c) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const cataloge = await Cataloge.findOne({ where: { uuid_1c } });
+            return response.json({ cataloge });
         } catch (e) {
             return next(ApiError.internal(e.message));
         };
@@ -42,7 +54,7 @@ class CatalogeController {
         }
         try {
             const cataloge = await Cataloge.update({ deleted: true }, { where: { id } });
-            return response.json(cataloge);
+            return response.json({ cataloge });
         } catch (e) {
             return next(ApiError.internal(e.message));
         };

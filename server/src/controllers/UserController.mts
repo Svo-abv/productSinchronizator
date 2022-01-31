@@ -27,6 +27,7 @@ class UserController {
     }
     async login(request, response, next) {
         const { name, password } = request.body;
+        console.log(request.body);
         if (!name || !password) {
             return next(ApiError.noneSetFields());
         }

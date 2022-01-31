@@ -8,6 +8,7 @@ const CatalogeRoute = Router();
 CatalogeRoute.post("/", CheckRole('ADMIN'), CatalogeController.create);
 CatalogeRoute.get("/", CatalogeController.getAll);
 CatalogeRoute.get("/:id", CatalogeController.get);
+CatalogeRoute.get("/1c/:uuid_1c", CatalogeController.getUuid);
 CatalogeRoute.get("/delete/:id", AuthMiddleware, CatalogeController.setDeleted);
 
 
