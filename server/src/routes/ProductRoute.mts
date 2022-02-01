@@ -7,11 +7,11 @@ const ProductRoute = Router();
 
 ProductRoute.post("/", CheckRole('ADMIN'), ProductController.create);
 ProductRoute.get("/delete/:id", AuthMiddleware, ProductController.setDeleted);
-ProductRoute.get("/", ProductController.getAll);
-ProductRoute.get("/:id", ProductController.get);
-ProductRoute.get("/brend/:id", ProductController.getByBrend);
-ProductRoute.get("/cataloge/:id", ProductController.getByCataloge);
-ProductRoute.get("/1c/:uuid_1c", ProductController.getUuid);
+ProductRoute.get("/", AuthMiddleware, ProductController.getAll);
+ProductRoute.get("/:id", AuthMiddleware, ProductController.get);
+ProductRoute.post("/user/", AuthMiddleware, ProductController.getByUser);
+ProductRoute.get("/cataloge/:id", AuthMiddleware, ProductController.getByCataloge);
+ProductRoute.get("/1c/:uuid_1c", AuthMiddleware, ProductController.getUuid);
 
 
 export default ProductRoute;

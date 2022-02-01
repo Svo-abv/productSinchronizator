@@ -1,27 +1,27 @@
 import { observer } from 'mobx-react';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Context } from '..';
-import { getAllBrandsApi } from '../httpApi/BrandApi';
-import { getAllCatalogsApi } from '../httpApi/CatalogeApi';
-import { getAllProductsApi } from '../httpApi/ProductApi';
+import { getAllBrandsApi, getBrandsByUserApi } from '../httpApi/BrandApi';
+import { getAllCatalogsApi, getCatalogeByUserApi } from '../httpApi/CatalogeApi';
+import { getAllProductsApi, getAllProductsByBrendApi } from '../httpApi/ProductApi';
 import BrandsBar from '../modules/BrandsBar';
 import CatalogesBar from '../modules/CatalogesBar';
 import ProductList from '../modules/ProductList';
 
 const Panel = observer(() => {
 
-    const { brands, cataloges, products } = useContext(Context);
+    const { user, brands, cataloges, products } = useContext(Context);
 
     useEffect(() => {
-        getAllCatalogsApi().then((data) => {
+        getCatalogeByUserApi(user.user.id).then((data) => {
 
             cataloges.set(data);
 
-            getAllBrandsApi().then((data) => {
+            getBrandsByUserApi(user.user.id).then((data) => {
                 brands.set(data);
 
-                getAllProductsApi().then((data) => {
+                getAllProductsByBrendApi(user.user.id).then((data) => {
                     products.set(data);
                 })
 

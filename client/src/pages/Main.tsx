@@ -1,21 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import NavigationRouts from '../modules/NavigationRouts';
-import Container from 'react-bootstrap/Container';
 import '../styles/App.css'
-import NavigationMenu from '../modules/NavigationMenu';
-import { observer } from 'mobx-react';
-import { Context } from '..';
 
-const Main: React.FC = observer(() => {
-  const { user } = useContext(Context);
+const Main: React.FC = () => {
   return (
     <div>
-      <NavigationMenu />
-      <Container className="p-3">
-        <NavigationRouts />
-      </Container>
+      <NavigationRouts />
     </div >
   );
-});
+};
 
 export default Main;

@@ -1,5 +1,6 @@
 import ApiError from "../error/ApiError.mjs";
 import { Brand } from "../models/schema.mjs";
+import sequelize from "../modules/db.mjs";
 
 
 class BrandController {
@@ -44,6 +45,17 @@ class BrandController {
         try {
             const brand = await Brand.findOne({ where: { uuid_1c } });
             return response.json({ brand });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    }
+    async getByUser(request, response, next) {
+        if (!request.body.userId) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const brand = await sequelize.query(`SELECT b.* FROM user_brands as u left join brands as b on u.brandId = b.id  where u.userId = ${request.body.userId}`);
+            return response.json(brand[0]);
         } catch (e) {
             return next(ApiError.internal(e.message));
         };

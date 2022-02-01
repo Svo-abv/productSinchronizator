@@ -32,13 +32,21 @@ const Auth = () => {
         }
     }
     return (
-        <Container>
-            <Card>
-                <h2>Авторизация</h2>
-                <Form>
-                    <Form.Control placeholder='Введите имя' value={name} onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
-                    <Form.Control type='password' placeholder='Введите пароль' value={pwd} onChange={(e: ChangeEvent<HTMLInputElement>) => setPwd(e.target.value)} />
-                    <Button onClick={click}>Войти</Button>
+        <Container
+            className='d-flex justify-content-center' >
+            <Card style={{ width: 600, height: 300 }} className='px-5 pb-5 pt-2'>
+                <h2 className='m-auto'>Авторизация</h2>
+                <Form className='d-flex flex-column'>
+                    <Form.Control placeholder='Введите имя...'
+                        className='mt-2'
+                        value={name}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
+                    <Form.Control type='password' placeholder='Введите пароль...'
+                        className='mt-2'
+                        value={pwd}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setPwd(e.target.value)} />
+                    <Button className='mt-2'
+                        onClick={click}>Войти</Button>
 
                 </Form>
             </Card>

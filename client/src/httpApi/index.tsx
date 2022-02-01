@@ -15,7 +15,7 @@ const $authHost = axios.create(
 const authInterceptor = (config: AxiosRequestConfig): AxiosRequestConfig => {
     try {
         const headers = config.headers ?? {};
-        headers.Authorization = `Bearer ${localStorage.getItem('tiken')}`;
+        headers.Authorization = `Bearer ${localStorage.getItem('jwtHash')}`;
         return { ...config, headers };
     } catch (e) {
 

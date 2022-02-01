@@ -1,5 +1,6 @@
 import ApiError from "../error/ApiError.mjs";
 import { Products } from "../models/schema.mjs";
+import sequelize from "../modules/db.mjs";
 
 class ProductController {
 
@@ -49,18 +50,29 @@ class ProductController {
         };
 
     }
-    async getByBrend(request, response, next) {
-        const { brandId } = request.params;
-        if (!brandId) {
+    async getByUser(request, response, next) {
+        if (!request.body.userId) {
             return next(ApiError.noneSetFields());
         }
         try {
-            const product = await Products.findAll({ where: { brandId } });
-            return response.json({ product });
+
+            let tmp = ``;
+            if (request.body.brandId) {
+                tmp = `and b.brandId =${request.body.brandId}`;
+            }
+            let tmp1 = ``;
+            if (request.body.catalogeId) {
+                tmp1 = `and p.catalogeId =${request.body.catalogeId}`;
+            }
+            const product = await sequelize.query('SELECT  p.*  FROM user_brands as b left join products as p on b.brandId=p.brandId ' +
+                `where b.userId=${request.body.userId} ${tmp} ${tmp1}`);
+            return response.json(product[0]);
         } catch (e) {
             return next(ApiError.internal(e.message));
-        };
+        };;
     }
+
+
     async getByCataloge(request, response, next) {
         const { catalogeId } = request.params;
         if (!catalogeId) {
