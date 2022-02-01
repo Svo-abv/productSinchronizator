@@ -1,19 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AdminPanel from '../pages/AdminPanel';
-import Auth from '../pages/Auth';
-import Main from '../pages/Main';
-import Panel from '../pages/Panel';
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Context } from '..';
+import PublicRoutes from './RoutesPablic';
+import { AuthRoutes } from './RoutesPrivate';
 
 const NavigationRouts = () => {
+    const { user } = useContext(Context);
     return (
-        <Router>
-            <Route path="/" element={<Main />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/pannel" element={<Panel />} />
-            <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/" element={<Main />} />
-        </Router>
+        <BrowserRouter>
+            <Routes>
+                {
+                    AuthRoutes.map(({ path, component }) =>
+                        <Route key={path} path={path} element={component} />
+                    )}
+                {
+                    PublicRoutes.map(({ path, component }) =>
+                        <Route key={path} path={path} element={component} />
+                    )
+                }
+            </Routes>
+        </BrowserRouter>
     );
 };
 
