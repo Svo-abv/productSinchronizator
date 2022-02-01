@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { $pubHost, $authHost } from ".";
+import { IUser } from "../store/UserStore";
 
 export const loginApi = async (name: string, password: string) => {
 
@@ -7,9 +8,9 @@ export const loginApi = async (name: string, password: string) => {
     localStorage.setItem("jwtHash", data.jwtHash);
     return jwtDecode(data.jwtHash);
 }
-export const checkApi = async (name: string, password: string) => {
+export const checkApi = async () => {
 
-    const { data } = await $authHost.post('api/user/auth', { name, password });
-    localStorage.setItem("jwtHash", data.jwtHash);
-    return jwtDecode(data.jwtHash);
+    const { data } = await $authHost.get('api/user/auth');
+    localStorage.setItem("jwtHash", data);
+    return jwtDecode(data);;
 }

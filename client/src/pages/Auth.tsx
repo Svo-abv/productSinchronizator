@@ -1,5 +1,5 @@
 import { Container, Form, Card, Button } from 'react-bootstrap'
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { loginApi } from '../httpApi/UserApi';
 import { Context } from '..';
 import { useNavigate } from 'react-router-dom';
@@ -15,9 +15,16 @@ interface IUser {
 const Auth = () => {
 
     const { user } = useContext(Context);
+    const navi = useNavigate();
     const [name, setName] = useState("");
     const [pwd, setPwd] = useState("");
-    const navi = useNavigate();
+
+    useEffect(() => {
+        if (user.isAuth) {
+            navi("/panel");
+        }
+    });
+
 
     const click = async () => {
         try {
