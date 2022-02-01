@@ -60,6 +60,18 @@ class ProductController {
         } catch (e) {
             return next(ApiError.internal(e.message));
         };
+    }
+    async getByCataloge(request, response, next) {
+        const { catalogeId } = request.params;
+        if (!catalogeId) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const product = await Products.findAll({ where: { catalogeId } });
+            return response.json({ product });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
 
     }
     async getUuid(request, response, next) {
