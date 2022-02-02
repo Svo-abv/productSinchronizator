@@ -6,7 +6,7 @@ import { CheckRole } from "../middleware/CheckRoleMiddleware.mjs";
 const ProductRoute = Router();
 
 ProductRoute.post("/", CheckRole('ADMIN'), ProductController.create);
-ProductRoute.get("/delete/:id", AuthMiddleware, ProductController.setDeleted);
+ProductRoute.post("/delete/", AuthMiddleware, ProductController.setDeleted);
 ProductRoute.get("/", AuthMiddleware, ProductController.getAll);
 ProductRoute.get("/:id", AuthMiddleware, ProductController.get);
 ProductRoute.post("/user/", AuthMiddleware, ProductController.getByUser);

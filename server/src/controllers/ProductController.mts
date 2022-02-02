@@ -38,12 +38,12 @@ class ProductController {
     }
 
     async setDeleted(request, response, next) {
-        const { id } = request.params;
-        if (!id) {
+        const { uuid_1c, deleted } = request.params;
+        if (!uuid_1c) {
             return next(ApiError.noneSetFields());
         }
         try {
-            const product = await Products.update({ deleted: true }, { where: { id } });
+            const product = await Products.update({ deleted: deleted }, { where: { uuid_1c } });
             return response.json({ product });
         } catch (e) {
             return next(ApiError.internal(e.message));
@@ -87,7 +87,7 @@ class ProductController {
 
     }
     async getUuid(request, response, next) {
-        const { uuid_1c } = request.params;
+        const { uuid_1c } = request.body;
         if (!uuid_1c) {
             return next(ApiError.noneSetFields());
         }
