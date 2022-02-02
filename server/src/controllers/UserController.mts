@@ -52,11 +52,12 @@ class UserController {
 
     }
     async checkAuth(request, response, next) {
+
         const jwtHash = jwt.sign(
             { id: request.user.id, name: request.user.name, role: request.user.role },
             process.env.SECRET,
             { expiresIn: "24h" });
-        return response.json({ jwtHash });
+        return response.json(jwtHash);
     }
 }
 

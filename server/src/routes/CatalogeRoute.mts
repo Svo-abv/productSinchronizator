@@ -6,9 +6,10 @@ import { CheckRole } from "../middleware/CheckRoleMiddleware.mjs";
 const CatalogeRoute = Router();
 
 CatalogeRoute.post("/", CheckRole('ADMIN'), CatalogeController.create);
-CatalogeRoute.get("/", CatalogeController.getAll);
-CatalogeRoute.get("/:id", CatalogeController.get);
-CatalogeRoute.get("/1c/:uuid_1c", CatalogeController.getUuid);
+CatalogeRoute.get("/", AuthMiddleware, CatalogeController.getAll);
+CatalogeRoute.get("/:id", AuthMiddleware, CatalogeController.get);
+CatalogeRoute.post("/user", AuthMiddleware, CatalogeController.getByUser);
+CatalogeRoute.get("/1c/:uuid_1c", AuthMiddleware, CatalogeController.getUuid);
 CatalogeRoute.get("/delete/:id", AuthMiddleware, CatalogeController.setDeleted);
 
 
