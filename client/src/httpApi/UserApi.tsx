@@ -10,7 +10,8 @@ export const loginApi = async (name: string, password: string) => {
 }
 export const checkApi = async () => {
 
-    const { data } = await $authHost.get('api/user/auth');
-    localStorage.setItem("jwtHash", data);
-    return jwtDecode(data);;
+    const { data } = await $authHost.get('api/user/auth', { timeout: 5000 });
+    //localStorage.setItem("jwtHash", data);
+    //jwtDecode(data);
+    return data;
 }

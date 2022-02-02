@@ -29,10 +29,10 @@ const BrandsBar = observer(() => {
             );
         });
     }
-    return (
+    return ( //{window.innerWidth > 760 ? 'mb-3 w-auto' : 'mb-3'}
         <Row className='d-flex ps-1'>
-            <h4 className='mb-3'>Ваши бренды:</h4>
-            <ListGroup horizontal className='ms-3'>
+            <h4 className={window.innerWidth > 760 ? 'mb-3 w-auto' : 'mb-3'}>Бренды:</h4>
+            <ListGroup horizontal className='ms-3 w-auto'>
                 {brands.get().map((item) =>
                     <ListGroup.Item
                         active={brands.selectedBrand === item}

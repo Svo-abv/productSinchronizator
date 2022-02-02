@@ -7,7 +7,7 @@ import ProductItem from './ProductItem';
 const ProductList = observer(() => {
     const { products } = useContext(Context);
     return (
-        <Row>{
+        <Row className='mt-3'>{
             products.get().map((item) =>
                 <ProductItem key={item.id} product={item} />
             )}

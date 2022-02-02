@@ -41,10 +41,16 @@ const Panel = observer(() => {
         <Container>
             <Row className='mt-2'>
                 <Col md={3}>
-                    {loadingCataloge ? <SpinnerItem /> : <CatalogesBar />}
                 </Col>
                 <Col md={9}>
                     {loadingBrands ? <SpinnerItem /> : <BrandsBar />}
+                </Col>
+            </Row>
+            <Row className='mt-2'>
+                <Col md={3}>
+                    {loadingCataloge ? <SpinnerItem /> : <CatalogesBar />}
+                </Col>
+                <Col md={9}>
                     {loadingProducts ? <SpinnerItem /> : <ProductList />}
                 </Col>
             </Row>
