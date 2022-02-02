@@ -10,7 +10,7 @@ const ProductItem = (props: IProductItem) => {
     return (
         <Col md={4}>
             <Card className='m-3 p-3'>
-                <Card.Img variant="top" src="https://www.xn--90acgeplx0bf5g.xn--p1ai/wp-content/uploads/2022/02/95eab9b5832e11ec8f25a85e4510e1cd_95eab9b6832e11ec8f25a85e4510e1cd.jpg" />
+                <Card.Img variant="top" src={props.product.img} />
                 <Card.Body>
                     <Card.Title> {props.product.code}</Card.Title>
                     <Card.Text>

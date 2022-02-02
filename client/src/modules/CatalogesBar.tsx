@@ -17,6 +17,7 @@ const CatalogesBar = observer(() => {
 
     return (
         <ListGroup className='mb-3' >
+            <h4 className='mb-3'>Категории:</h4>
             {cataloges.get().map((item) =>
                 <ListGroup.Item
                     action

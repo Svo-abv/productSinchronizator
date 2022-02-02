@@ -7,6 +7,7 @@ export interface IProduct {
     name: string;
     code: string;
     uuid_1c: string;
+    img: string;
     brandId: number;
     catalogId: number;
     deleted: boolean;

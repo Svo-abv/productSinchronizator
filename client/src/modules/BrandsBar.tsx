@@ -31,6 +31,7 @@ const BrandsBar = observer(() => {
     }
     return (
         <Row className='d-flex ps-1'>
+            <h4 className='mb-3'>Ваши бренды:</h4>
             {brands.get().map((item) =>
                 <Card
                     style={{ width: 'auto' }}
