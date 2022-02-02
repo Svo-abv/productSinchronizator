@@ -1,3 +1,4 @@
+import http from 'http';
 import ApiError from "../error/ApiError.mjs";
 import { Products } from "../models/schema.mjs";
 import sequelize from "../modules/db.mjs";
@@ -37,14 +38,22 @@ class ProductController {
         };
     }
 
-    async setDeleted(request, response, next) {
-        const { uuid_1c, deleted } = request.body;
-        console.log(request.body);
+    async setDeleted(req, response, next) {
+        const { uuid_1c, deleted } = req.body;
+        console.log(req.body);
         if (!uuid_1c) {
             return next(ApiError.noneSetFields());
         }
         try {
             const product = await Products.update({ deleted: deleted }, { where: { uuid_1c } });
+            let uri = '';
+            if (deleted) {
+                uri = process.env.LOCAL_API_SERVER + `del/${uuid_1c}`;
+            }
+            else {
+                uri = process.env.LOCAL_API_SERVER + `rec/${uuid_1c}`;
+            }
+            http.request(uri).end();
             return response.json({ product });
         } catch (e) {
             return next(ApiError.internal(e.message));

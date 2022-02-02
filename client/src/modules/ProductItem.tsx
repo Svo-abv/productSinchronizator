@@ -16,7 +16,7 @@ const ProductItem = (props: IProductItem) => {
     return (
         <Col md={4}>
             <Card className='m-3 p-3'>
-                <Card.Img variant="top" src={props.product.img} />
+                <Card.Img variant="top" src={String(props.product.img).replace(".jpg", "-300x300.jpg")} />
                 <Card.Body>
                     <Card.Title> {props.product.code}</Card.Title>
                     <Card.Text>
