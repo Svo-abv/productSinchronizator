@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '..';
 import { checkApi } from '../httpApi/UserApi';
 import NavigationRouts from '../modules/NavigationRouts';
+import SpinnerItem from '../modules/SpinnerItem';
 import { IUser } from '../store/UserStore';
 import '../styles/App.css'
 
@@ -22,7 +23,9 @@ const Main: React.FC = observer(() => {
   }, []);
   return (
     <div>
-      <NavigationRouts />
+      {
+        loading ? <SpinnerItem /> : <NavigationRouts />
+      }
     </div >
   );
 });

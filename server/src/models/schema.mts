@@ -49,7 +49,7 @@ export const Products = sequelize.define("products", {
     code: { type: DataTypes.STRING, },
     name: { type: DataTypes.STRING, },
     img: { type: DataTypes.STRING, },
-    deleted: { type: DataTypes.BOOLEAN, },
+    deleted: { type: DataTypes.BOOLEAN, defaultValue: false },
     uuid_1c: { type: DataTypes.STRING, unique: true }
 });
 

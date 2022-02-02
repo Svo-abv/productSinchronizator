@@ -38,7 +38,8 @@ class ProductController {
     }
 
     async setDeleted(request, response, next) {
-        const { uuid_1c, deleted } = request.params;
+        const { uuid_1c, deleted } = request.body;
+        console.log(request.body);
         if (!uuid_1c) {
             return next(ApiError.noneSetFields());
         }
@@ -65,7 +66,7 @@ class ProductController {
                 tmp1 = `and p.catalogeId =${request.body.catalogeId}`;
             }
             const product = await sequelize.query('SELECT  p.*  FROM user_brands as b left join products as p on b.brandId=p.brandId ' +
-                `where b.userId=${request.body.userId} ${tmp} ${tmp1}`);
+                `where p.deleted=0 and b.userId=${request.body.userId} ${tmp} ${tmp1}`);
             return response.json(product[0]);
         } catch (e) {
             return next(ApiError.internal(e.message));
