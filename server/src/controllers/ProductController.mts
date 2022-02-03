@@ -79,8 +79,8 @@ class ProductController {
             return response.json(product[0]);
         } catch (e) {
             return next(ApiError.internal(e.message));
-        };;
-    }
+        };
+    };
 
 
     async getByCataloge(request, response, next) {
@@ -95,15 +95,67 @@ class ProductController {
             return next(ApiError.internal(e.message));
         };
 
-    }
+    };
     async getUuid(request, response, next) {
-        const { uuid_1c } = request.body;
+        const { uuid_1c } = request.params;
         if (!uuid_1c) {
             return next(ApiError.noneSetFields());
         }
         try {
-            const product = await Products.findAll({ where: { uuid_1c } });
+            const product = await sequelize.query("SELECT p.*, b.uuid_1c as brandUuid, c.uuid_1c as catalogeUuid FROM products as p " +
+                "inner join brands as b on p.brandId = b.id " +
+                `inner join cataloges as c on p.catalogeId = c.id where p.uuid_1c = '${uuid_1c}'`);
+
             return response.json({ product });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    };
+    async updateData(request, response, next) {
+        if (!request.body.id) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const product = await Products.update(
+                { ...request.body },
+                { where: { id: request.body.id } });
+            return response.json({ product });
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    }
+    async getAllDeleted(request, response, next) {
+        const { status } = request.params;
+        if (!status) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const product = await Products.findAll(
+                {
+                    attributes: ['uuid_1c'],
+                    where: { deleted: status }
+                });
+            return response.json(product);
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    }
+    async setDeletedUuid(request, response, next) {
+        const { uuid_1c } = request.params;
+        if (!uuid_1c) {
+            return next(ApiError.noneSetFields());
+        }
+        try {
+            const product = await Products.update({ deleted: 1 }, { where: { uuid_1c } });
+            return response.json(product);
+        } catch (e) {
+            return next(ApiError.internal(e.message));
+        };
+    }
+    async getClearAll(request, response, next) {
+        try {
+            const product = await Products.destroy({ where: { deleted: true } });
+            return response.json(product);
         } catch (e) {
             return next(ApiError.internal(e.message));
         };
