@@ -125,7 +125,7 @@ class ProductController {
         };
     }
     async getAllDeleted(request, response, next) {
-        const { status } = request.params;
+        const { status, version  } = request.params;
         if (!status) {
             return next(ApiError.noneSetFields());
         }
@@ -133,7 +133,7 @@ class ProductController {
             const product = await Products.findAll(
                 {
                     attributes: ['uuid_1c'],
-                    where: { deleted: status }
+                    where: { deleted: status, version}
                 });
             return response.json(product);
         } catch (e) {
@@ -154,7 +154,8 @@ class ProductController {
     }
     async getClearAll(request, response, next) {
         try {
-            const product = await Products.destroy({ where: { deleted: true } });
+             const { version } = request.params;
+            const product = await Products.destroy({ where: { deleted: true, version } });
             return response.json(product);
         } catch (e) {
             return next(ApiError.internal(e.message));
