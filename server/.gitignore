@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/sslcert
+/.vscode
 /.pnp
 .pnp.js
 .env
@@ -13,6 +15,7 @@
 /build
 /out
 /.firebase
+
 
 # misc
 .DS_Store

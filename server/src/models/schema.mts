@@ -49,8 +49,9 @@ export const Products = sequelize.define("products", {
     code: { type: DataTypes.STRING, },
     name: { type: DataTypes.STRING, },
     img: { type: DataTypes.STRING, },
-    deleted: { type: DataTypes.BOOLEAN, },
-    uuid_1c: { type: DataTypes.STRING, unique: true }
+    deleted: { type: DataTypes.BOOLEAN, defaultValue: false },
+    uuid_1c: { type: DataTypes.STRING, unique: true },
+    version: {type: DataTypes.INTEGER, defaultValue: 0}
 });
 
 Brand.hasOne(Products);

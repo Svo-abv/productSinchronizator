@@ -18,20 +18,23 @@ const NavigationMenu = observer(() => {
             <Navbar bg="light" variant="light" fixed="top">
                 <Container>
                     <Navbar.Brand href="/">ООО 	&#8220;ОбувьДетки&#8221;</Navbar.Brand>
-                    <Navbar.Text>
-                        b2b портал, тел: 8 (800) 511-59-92
-                    </Navbar.Text>
-                    <Nav.Link href="https://www.обувьдетки.рф/">обувьдетки.рф</Nav.Link>
-                    <Navbar.Collapse className="justify-content-end pe-2">
+                    <Container className={window.innerWidth < 800 ? 'd-none' : 'd-flex'}>
                         <Navbar.Text>
-                            {user.isAuth ? `Вы вошли как: ${user.user.name}` : ""}
+                            b2b портал, тел: 8 (800) 511-59-92
                         </Navbar.Text>
-                    </Navbar.Collapse>
+                        <Nav.Link href="https://www.обувьдетки.рф/">обувьдетки.рф</Nav.Link>
+                        <Navbar.Collapse className="justify-content-end pe-2">
+                            <Navbar.Text>
+                                {user.isAuth ? `Вы вошли как: ${user.user.name}` : ""}
+                            </Navbar.Text>
+                        </Navbar.Collapse>
+                    </Container>
                     <Nav >
                         {user.isAuth ? <Button variant="secondary" onClick={onClickHandler}>Выйти</Button> : ""}
                     </Nav>
                 </Container>
-            </Navbar>
+
+            </Navbar >
         </div >
     );
 });

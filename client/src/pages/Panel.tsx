@@ -8,25 +8,32 @@ import { getAllProductsApi, getAllProductsByBrendApi } from '../httpApi/ProductA
 import BrandsBar from '../modules/BrandsBar';
 import CatalogesBar from '../modules/CatalogesBar';
 import ProductList from '../modules/ProductList';
+import SpinnerItem from '../modules/SpinnerItem';
 
 const Panel = observer(() => {
 
     const { user, brands, cataloges, products } = useContext(Context);
-
+    const [loadingCataloge, setLoadingCataloge] = useState(true);
+    const [loadingBrands, setLoadingBrands] = useState(true);
+    const [loadingProducts, setLoadingProducts] = useState(true);
     useEffect(() => {
         getCatalogeByUserApi(user.user.id).then((data) => {
 
             cataloges.set(data);
+            setLoadingCataloge(false);
 
             getBrandsByUserApi(user.user.id).then((data) => {
                 brands.set(data);
+                setLoadingBrands(false);
 
                 getAllProductsByBrendApi(user.user.id).then((data) => {
                     products.set(data);
+                    setLoadingProducts(false);
                 })
 
             });
         })
+        //.finally(() => setLoading(false));
 
 
     }, []);
@@ -34,11 +41,17 @@ const Panel = observer(() => {
         <Container>
             <Row className='mt-2'>
                 <Col md={3}>
-                    <CatalogesBar />
                 </Col>
                 <Col md={9}>
-                    <BrandsBar />
-                    <ProductList />
+                    {loadingBrands ? <SpinnerItem /> : <BrandsBar />}
+                </Col>
+            </Row>
+            <Row className='mt-2'>
+                <Col md={3}>
+                    {loadingCataloge ? <SpinnerItem /> : <CatalogesBar />}
+                </Col>
+                <Col md={9}>
+                    {loadingProducts ? <SpinnerItem /> : <ProductList />}
                 </Col>
             </Row>
         </Container>

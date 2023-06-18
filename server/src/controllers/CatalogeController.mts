@@ -76,7 +76,7 @@ class CatalogeController {
             const cataloge = await sequelize.query("select c.* from cataloges as c " +
                 "inner join(SELECT distinct p.catalogeId as pId FROM user_brands as b " +
                 "left join products as p on b.brandId = p.brandId " +
-                `where b.userId = ${request.body.userId} ${tmp}) as v on v.pId = c.id order by c.id`);
+                `where p.deleted=0 and b.userId = ${request.body.userId} ${tmp}) as v on v.pId = c.id order by c.id`);
             return response.json(cataloge[0]);
         } catch (e) {
             return next(ApiError.internal(e.message));
