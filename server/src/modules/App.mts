@@ -42,7 +42,7 @@ class App {
 
             this.a.use(cors());
             this.a.use(express.json());
-            this.a.use("/api", this.rout);
+            this.a.use("/", this.rout);
 
             this.a.use(ErrorHandllingMiddleware);
 
